@@ -5,9 +5,9 @@ import (
 	"log"
 	"net/http"
 
-	cont "github.com/sebastianBD95/AutomatedCron/App/presenter"
-
 	"github.com/gorilla/mux"
+	db "github.com/sebastianBD95/AutomatedCron/App/configuration"
+	cont "github.com/sebastianBD95/AutomatedCron/App/presenter"
 )
 
 func homeLink(w http.ResponseWriter, r *http.Request) {
@@ -17,7 +17,10 @@ func homeLink(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 
-	fmt.Println("init")
+	fmt.Println("init db connection")
+
+	dbmongo := db.New()
+	dbmongo.InitConnection()
 
 	r := mux.NewRouter()
 	r.HandleFunc("/", homeLink)
