@@ -1,4 +1,4 @@
-package main
+package configuration
 
 import (
 	"context"
@@ -12,7 +12,14 @@ type DBmanager struct {
 	clientMongo *mongo.Client
 }
 
-func (db DBmanager) initConnection() {
+var dbmongo DBmanager
+
+func New() DBmanager {
+
+	return dbmongo
+}
+
+func (db DBmanager) InitConnection() {
 
 	clientOptions := options.Client().ApplyURI("mongodb://cronUser:cronPass@localhost:27017/cron_automated")
 

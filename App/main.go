@@ -22,6 +22,7 @@ func main() {
 	dbmongo := db.New()
 	dbmongo.InitConnection()
 
+	fmt.Println("init endPoints")
 	r := mux.NewRouter()
 	r.HandleFunc("/", homeLink)
 	r.HandleFunc("/cron", cont.CreateCron).
