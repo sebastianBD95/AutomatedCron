@@ -8,23 +8,14 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-type DBmanager struct {
-	clientMongo *mongo.Client
-}
-
-var dbmongo DBmanager
-
-func New() DBmanager {
-
-	return dbmongo
-}
+var ClientMongo *mongo.Client
 
 func GetCollection(coll string) *mongo.Collection {
 
-	return dbmongo.clientMongo.Database("cron_automated").Collection(coll)
+	return ClientMongo.Database("cron_automated").Collection(coll)
 }
 
-func (db DBmanager) InitConnection() {
+func InitConnection() {
 
 	clientOptions := options.Client().ApplyURI("mongodb://cronUser:cronPass@localhost:27017/cron_automated")
 
@@ -41,14 +32,14 @@ func (db DBmanager) InitConnection() {
 		fmt.Println("Mongo: " + err.Error())
 	}
 
-	db.clientMongo = client
+	ClientMongo = client
 	fmt.Println("Connection succesfully !!")
 
 }
 
-func (db DBmanager) disconnect() {
+func Disconnect() {
 
-	err := db.clientMongo.Disconnect(context.TODO())
+	err := ClientMongo.Disconnect(context.TODO())
 
 	if err != nil {
 		fmt.Println(err)

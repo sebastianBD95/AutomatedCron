@@ -13,7 +13,7 @@ func SaveCron(_ context.Context, i interface{}) (interface{}, error) {
 
 	fmt.Println("infrastructure")
 	c := i.(m.CronAutomated)
-
+	db.InitConnection()
 	collection := db.GetCollection("crons")
 	result, err := collection.InsertOne(context.TODO(), c)
 
@@ -22,5 +22,6 @@ func SaveCron(_ context.Context, i interface{}) (interface{}, error) {
 	}
 
 	c.ID = result.InsertedID.(primitive.ObjectID).Hex()
+	db.Disconnect()
 	return c, nil
 }
