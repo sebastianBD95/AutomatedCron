@@ -1,7 +1,7 @@
 package model
 
 type CronAutomated struct {
-	ID     int               `json: "id"`
+	ID     string            `json: "id"`
 	Name   string            `Json: "name"`
 	Url    string            `Json: "url"`
 	Header map[string]string `json: "header"`

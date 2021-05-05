@@ -19,6 +19,11 @@ func New() DBmanager {
 	return dbmongo
 }
 
+func GetCollection(coll string) *mongo.Collection {
+
+	return dbmongo.clientMongo.Database("cron_automated").Collection(coll)
+}
+
 func (db DBmanager) InitConnection() {
 
 	clientOptions := options.Client().ApplyURI("mongodb://cronUser:cronPass@localhost:27017/cron_automated")
@@ -39,4 +44,14 @@ func (db DBmanager) InitConnection() {
 	db.clientMongo = client
 	fmt.Println("Connection succesfully !!")
 
+}
+
+func (db DBmanager) disconnect() {
+
+	err := db.clientMongo.Disconnect(context.TODO())
+
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println("Connection succesfully close !!")
 }
