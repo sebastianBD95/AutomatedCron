@@ -6,12 +6,13 @@ import (
 
 	db "github.com/sebastianBD95/AutomatedCron/App/configuration"
 	m "github.com/sebastianBD95/AutomatedCron/App/usecases/model"
+	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func SaveCron(_ context.Context, i interface{}) (interface{}, error) {
 
-	fmt.Println("infrastructure")
+	logrus.Info("Saving cron data")
 	c := i.(m.CronAutomated)
 	db.InitConnection()
 	collection := db.GetCollection("crons")
@@ -22,6 +23,7 @@ func SaveCron(_ context.Context, i interface{}) (interface{}, error) {
 	}
 
 	c.ID = result.InsertedID.(primitive.ObjectID).Hex()
+	logrus.Info("saving succesfully")
 	db.Disconnect()
 	return c, nil
 }

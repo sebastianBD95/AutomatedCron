@@ -2,8 +2,8 @@ package configuration
 
 import (
 	"context"
-	"fmt"
 
+	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -22,18 +22,18 @@ func InitConnection() {
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 
 	if err != nil {
-		fmt.Println("Mongo: " + err.Error())
+		logrus.Error("Mongo: " + err.Error())
 
 	}
 
 	err = client.Ping(context.TODO(), nil)
 
 	if err != nil {
-		fmt.Println("Mongo: " + err.Error())
+		logrus.Error("Mongo: " + err.Error())
 	}
 
 	ClientMongo = client
-	fmt.Println("Connection succesfully !!")
+	logrus.Info("Connection succesfully !!")
 
 }
 
@@ -42,7 +42,7 @@ func Disconnect() {
 	err := ClientMongo.Disconnect(context.TODO())
 
 	if err != nil {
-		fmt.Println(err)
+		logrus.Error(err)
 	}
-	fmt.Println("Connection succesfully close !!")
+	logrus.Info("Connection succesfully close !!")
 }
