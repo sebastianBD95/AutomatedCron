@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
+	_ "github.com/sebastianBD95/AutomatedCron/App/configuration"
 	cont "github.com/sebastianBD95/AutomatedCron/App/presenter"
+	"github.com/sirupsen/logrus"
 )
 
 func homeLink(w http.ResponseWriter, r *http.Request) {
@@ -16,11 +17,11 @@ func homeLink(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 
-	fmt.Println("init endPoints")
+	logrus.Info("init endPoints")
 	r := mux.NewRouter()
 	r.HandleFunc("/", homeLink)
 	r.HandleFunc("/cron", cont.CreateCron).
 		Methods("POST")
 
-	log.Fatal(http.ListenAndServe(":8080", r))
+	logrus.Fatal(http.ListenAndServe(":8080", r))
 }

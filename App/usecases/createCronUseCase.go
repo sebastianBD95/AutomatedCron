@@ -2,18 +2,17 @@ package usecases
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	"github.com/reactivex/rxgo/v2"
 	"github.com/sebastianBD95/AutomatedCron/App/infrastructure"
 	"github.com/sebastianBD95/AutomatedCron/App/usecases/model"
+	"github.com/sirupsen/logrus"
 )
 
 func CreateCronUsesCase(c interface{}) (model.CronAutomated, error) {
 
-	fmt.Println("usesCases")
-	fmt.Println("c:", c)
+	logrus.Info("Creating  channel")
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
 	defer cancel()
 
@@ -25,7 +24,6 @@ func CreateCronUsesCase(c interface{}) (model.CronAutomated, error) {
 	observable.Connect(ctx)
 	ch <- rxgo.Of(c)
 	close(ch)
-	fmt.Println("procesando")
 
 	var cr model.CronAutomated
 	var err error
@@ -38,7 +36,7 @@ func CreateCronUsesCase(c interface{}) (model.CronAutomated, error) {
 		}
 
 	}
-
+	logrus.Info("Cron saved with Id: " + cr.ID)
 	return cr, err
 
 }
