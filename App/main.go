@@ -22,6 +22,8 @@ func main() {
 	r.HandleFunc("/", homeLink)
 	r.HandleFunc("/cron", cont.CreateCron).
 		Methods("POST")
+	r.HandleFunc("/cron", cont.GetCron).
+		Methods("GET")
 
 	logrus.Fatal(http.ListenAndServe(":8080", r))
 }

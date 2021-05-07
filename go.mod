@@ -6,7 +6,9 @@ require (
 	github.com/aws/aws-sdk-go v1.38.32 // indirect
 	github.com/cenkalti/backoff/v4 v4.1.0 // indirect
 	github.com/gorilla/mux v1.8.0
+	github.com/gorilla/schema v1.2.0
 	github.com/klauspost/compress v1.12.2 // indirect
+	github.com/micro/go-micro/v2 v2.9.1
 	github.com/reactivex/rxgo/v2 v2.5.0
 	github.com/sirupsen/logrus v1.4.2
 	github.com/stretchr/objx v0.3.0 // indirect
