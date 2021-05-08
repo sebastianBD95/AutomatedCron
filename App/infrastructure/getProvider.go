@@ -8,15 +8,18 @@ import (
 	m "github.com/sebastianBD95/AutomatedCron/App/usecases/model"
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func GetCron(_ context.Context, i interface{}) (interface{}, error) {
 
-	logrus.Info("Saving cron data")
-	c := i.(m.CronAutomated)
+	logrus.Info("Getting cron data")
+	c := i.(*m.CronAutomated)
 	var cronA m.CronAutomated
 
-	filter := bson.D{}
+	objId, _ := primitive.ObjectIDFromHex(c.ID)
+
+	filter := bson.M{"_id": objId, "name": c.Name}
 
 	db.InitConnection()
 	collection := db.GetCollection("crons")

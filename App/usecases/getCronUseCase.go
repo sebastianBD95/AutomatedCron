@@ -10,17 +10,16 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func GetCronUsesCase() (model.CronAutomated, error) {
+func GetCronUsesCase(c interface{}) (model.CronAutomated, error) {
 
-	logrus.Info("Creating  channel")
+	logrus.Info("Creating Get channel")
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
 	defer cancel()
 
-	var c model.CronAutomated
 	ch := make(chan rxgo.Item, 10)
 
 	observable := rxgo.FromChannel(ch, rxgo.WithPublishStrategy()).
-		Map(infrastructure.SaveCron)
+		Map(infrastructure.GetCron)
 
 	observable.Connect(ctx)
 	ch <- rxgo.Of(c)
