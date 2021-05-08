@@ -2,7 +2,6 @@ package presenter
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/gorilla/schema"
@@ -30,13 +29,12 @@ func CreateCron(w http.ResponseWriter, r *http.Request) {
 func GetCron(w http.ResponseWriter, r *http.Request) {
 
 	logrus.Info("Controler")
-
+	var cr model.CronAutomated
 	if err := r.ParseForm(); err != nil {
 		logrus.Error(err)
 	}
 
 	data, err := json.Marshal(r.Form)
-	logrus.Info(data)
 	if err != nil {
 		logrus.Error(err)
 	}
@@ -47,5 +45,8 @@ func GetCron(w http.ResponseWriter, r *http.Request) {
 		logrus.Error(err)
 	}
 
-	fmt.Println(cronA)
+	cr, err = usecases.GetCronUsesCase(cronA)
+
+	_ = data
+	json.NewEncoder(w).Encode(cr)
 }
