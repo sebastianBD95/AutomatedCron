@@ -50,3 +50,28 @@ func GetCron(w http.ResponseWriter, r *http.Request) {
 	_ = data
 	json.NewEncoder(w).Encode(cr)
 }
+
+func DeleteCron(w http.ResponseWriter, r *http.Request) {
+
+	logrus.Info("Controler")
+	var cr model.CronAutomated
+	if err := r.ParseForm(); err != nil {
+		logrus.Error(err)
+	}
+
+	data, err := json.Marshal(r.Form)
+	if err != nil {
+		logrus.Error(err)
+	}
+
+	cronA := new(model.CronAutomated)
+
+	if err := schema.NewDecoder().Decode(cronA, r.Form); err != nil {
+		logrus.Error(err)
+	}
+
+	cr, err = usecases.DeleteCronUsesCase(cronA)
+
+	_ = data
+	json.NewEncoder(w).Encode(cr)
+}

@@ -19,11 +19,13 @@ func main() {
 
 	logrus.Info("init endPoints")
 	r := mux.NewRouter()
-	r.HandleFunc("/", homeLink)
+
 	r.HandleFunc("/cron", cont.CreateCron).
 		Methods("POST")
 	r.HandleFunc("/cron", cont.GetCron).
 		Methods("GET")
+	r.HandleFunc("/cron", cont.DeleteCron).
+		Methods("DELETE")
 
 	logrus.Fatal(http.ListenAndServe(":8080", r))
 }
