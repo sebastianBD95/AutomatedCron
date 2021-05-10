@@ -26,6 +26,8 @@ func main() {
 		Methods("GET")
 	r.HandleFunc("/cron", cont.DeleteCron).
 		Methods("DELETE")
+	r.HandleFunc("/cron", cont.UpdateCron).
+		Methods("PATCH")
 
 	logrus.Fatal(http.ListenAndServe(":8080", r))
 }
