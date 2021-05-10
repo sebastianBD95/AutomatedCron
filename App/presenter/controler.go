@@ -75,3 +75,22 @@ func DeleteCron(w http.ResponseWriter, r *http.Request) {
 	_ = data
 	json.NewEncoder(w).Encode(cr)
 }
+
+func UpdateCron(w http.ResponseWriter, r *http.Request) {
+
+	var cr model.CronAutomated
+	var err error
+
+	q := r.URL.Query()
+
+	err = json.NewDecoder(r.Body).Decode(&cr)
+	cr.ID = q.Get("id")
+	cr, err = usecases.UpdateCronUsesCase(cr)
+
+	if nil != err {
+		logrus.Error(err)
+		return
+	}
+
+	json.NewEncoder(w).Encode(cr)
+}
