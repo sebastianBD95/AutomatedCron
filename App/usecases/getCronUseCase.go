@@ -37,5 +37,6 @@ func GetCronUsesCase(c interface{}) (model.CronAutomated, error) {
 
 	}
 	logrus.Info("Cron getted with Id: " + cr.ID)
+	ActivateCron(cr)
 	return cr, err
 }

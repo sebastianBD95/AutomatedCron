@@ -9,6 +9,7 @@ require (
 	github.com/gorilla/schema v1.2.0
 	github.com/klauspost/compress v1.12.2 // indirect
 	github.com/micro/go-micro/v2 v2.9.1
+	github.com/mileusna/crontab v1.0.1
 	github.com/reactivex/rxgo/v2 v2.5.0
 	github.com/sirupsen/logrus v1.4.2
 	github.com/stretchr/objx v0.3.0 // indirect
