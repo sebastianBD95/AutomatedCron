@@ -5,5 +5,5 @@ type CronAutomated struct {
 	Name   string            `schema: "name"`
 	Url    string            `schema: "url"`
 	Header map[string]string `schema: "header"`
-	Result string            `schema: "result"`
+	Date   string            `schema: "result"`
 }
