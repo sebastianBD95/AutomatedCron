@@ -3,7 +3,6 @@ package infrastructure
 import (
 	"context"
 
-	"github.com/micro/go-micro/v2/util/log"
 	db "github.com/sebastianBD95/AutomatedCron/App/configuration"
 	m "github.com/sebastianBD95/AutomatedCron/App/usecases/model"
 	"github.com/sirupsen/logrus"
@@ -26,7 +25,8 @@ func GetCron(_ context.Context, i interface{}) (interface{}, error) {
 	err := collection.FindOne(context.TODO(), filter).Decode(&cronA)
 
 	if err != nil {
-		log.Warn("Mongo : ", err)
+		logrus.Warn("Mongo : ", err)
+		return nil, err
 	}
 
 	logrus.Info("saving succesfully")

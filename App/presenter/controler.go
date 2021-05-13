@@ -20,7 +20,8 @@ func CreateCron(w http.ResponseWriter, r *http.Request) {
 
 	if nil != err {
 		logrus.Error(err)
-		return
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("500 - Something badhappened !"))
 	}
 
 	json.NewEncoder(w).Encode(cr)
@@ -35,6 +36,7 @@ func GetCron(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data, err := json.Marshal(r.Form)
+	_ = data
 	if err != nil {
 		logrus.Error(err)
 	}
@@ -47,7 +49,10 @@ func GetCron(w http.ResponseWriter, r *http.Request) {
 
 	cr, err = usecases.GetCronUsesCase(cronA)
 
-	_ = data
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		w.Write([]byte("404 - Something badhappened !"))
+	}
 	json.NewEncoder(w).Encode(cr)
 }
 
@@ -62,6 +67,7 @@ func DeleteCron(w http.ResponseWriter, r *http.Request) {
 	data, err := json.Marshal(r.Form)
 	if err != nil {
 		logrus.Error(err)
+
 	}
 
 	cronA := new(model.CronAutomated)
@@ -72,6 +78,10 @@ func DeleteCron(w http.ResponseWriter, r *http.Request) {
 
 	cr, err = usecases.DeleteCronUsesCase(cronA)
 
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		w.Write([]byte("404 - Something badhappened !"))
+	}
 	_ = data
 	json.NewEncoder(w).Encode(cr)
 }
@@ -87,10 +97,11 @@ func UpdateCron(w http.ResponseWriter, r *http.Request) {
 	cr.ID = q.Get("id")
 	cr, err = usecases.UpdateCronUsesCase(cr)
 
-	if nil != err {
-		logrus.Error(err)
-		return
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		w.Write([]byte("404 - Something badhappened !"))
 	}
 
-	json.NewEncoder(w).Encode(cr)
+	w.WriteHeader(http.StatusNoContent)
+	w.Write([]byte("204 - Update succesfully"))
 }
