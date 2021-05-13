@@ -20,6 +20,7 @@ func SaveCron(_ context.Context, i interface{}) (interface{}, error) {
 
 	if err != nil {
 		fmt.Println(err)
+		return nil, err
 	}
 
 	c.ID = result.InsertedID.(primitive.ObjectID).Hex()
