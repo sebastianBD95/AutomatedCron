@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/mileusna/crontab"
+	"github.com/robfig/cron/v3"
 )
 
 type CronAutomated struct {
@@ -11,5 +11,5 @@ type CronAutomated struct {
 	Verb   string            `schema:"verb"`
 	Header map[string]string `schema:"header"`
 	Date   string            `schema:"date"`
-	Cron   *crontab.Crontab  `json:"-"`
+	Cron   *cron.Cron        `json:"-"`
 }
