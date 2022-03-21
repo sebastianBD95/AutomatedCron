@@ -10,3 +10,8 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     ports:
       - "27017:27017"
+  autocron:
+    build: ./
+    restart: always
+    ports:
+      - "8080:8080"

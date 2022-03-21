@@ -17,7 +17,7 @@ func GetCollection(coll string) *mongo.Collection {
 
 func InitConnection() {
 
-	clientOptions := options.Client().ApplyURI("mongodb://cronUser:cronPass@localhost:27017/cron_automated")
+	clientOptions := options.Client().ApplyURI("mongodb://cronUser:cronPass@mongo:27017/cron_automated")
 
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 
