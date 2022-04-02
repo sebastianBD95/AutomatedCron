@@ -20,9 +20,9 @@ docker build -t <tag_container> .
 
 docker run -d <tag_container>
 ```
-##🌿 Mongo Configuration
+## 🌿 Mongo Configuration
 
-- make sure you have your database runing on localhosts:27017
+- make sure you have your database runing on localhost:27017
 
 - You must create de cron database and the user "cronUser"
 with pass "cronPass"
