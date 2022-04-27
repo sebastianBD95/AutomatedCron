@@ -34,3 +34,23 @@ func GetCron(_ context.Context, i interface{}) (interface{}, error) {
 	_ = c
 	return cronA, nil
 }
+
+func GetAllCrons() ([]m.CronAutomated, error) {
+
+	logrus.Info("Getting all crons!!")
+	db.InitConnection()
+	collection := db.GetCollection("crons")
+
+	cursor, err := collection.Find(context.TODO(), bson.M{})
+
+	var results []m.CronAutomated
+	err = cursor.All(context.TODO(), &results)
+	if err != nil {
+		logrus.Error(err)
+	}
+	for _, result := range results {
+		logrus.Info(result)
+	}
+
+	return results, nil
+}

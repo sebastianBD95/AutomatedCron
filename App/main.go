@@ -7,6 +7,7 @@ import (
 	"github.com/gorilla/mux"
 	_ "github.com/sebastianBD95/AutomatedCron/App/configuration"
 	cont "github.com/sebastianBD95/AutomatedCron/App/presenter"
+	uses "github.com/sebastianBD95/AutomatedCron/App/usecases"
 	"github.com/sirupsen/logrus"
 )
 
@@ -29,5 +30,7 @@ func main() {
 	r.HandleFunc("/cron", cont.UpdateCron).
 		Methods("PATCH")
 
-	logrus.Fatal(http.ListenAndServe(":8080", r))
+	uses.InitCronUsesCase()
+
+	logrus.Fatal(http.ListenAndServe(":8087", r))
 }
